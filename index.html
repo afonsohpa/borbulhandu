@@ -312,40 +312,61 @@
     .size-label .s-price { font-weight: 900; font-size: 18px; }
     .size-label .s-name { font-size: 12px; opacity: .6; text-transform: uppercase; }
 
-    /* qty */
-    .qty-wrap { display: flex; align-items: center; gap: 0; }
-    .qty-btn {
-      background: rgba(255,255,255,.1);
-      border: 1.5px solid rgba(255,255,255,.15);
-      color: var(--white);
-      font-size: 22px;
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background .2s;
+    /* ───── PRODUCT CARDS ───── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 4px;
     }
-    .qty-btn:hover { background: rgba(247,208,0,.2); }
-    #qty {
-      width: 64px;
-      text-align: center;
-      border-radius: 0;
-      border-left: none; border-right: none;
-    }
+    @media (max-width: 480px) { .product-grid { grid-template-columns: 1fr; } }
 
-    /* flavor checkboxes */
-    .flavor-checks { display: flex; gap: 12px; flex-wrap: wrap; }
-    .fl-check { display: none; }
-    .fl-label {
-      display: flex; align-items: center; gap: 8px;
-      border: 2px solid rgba(255,255,255,.15);
-      border-radius: 40px;
-      padding: 8px 18px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 700;
-      transition: border-color .2s, background .2s;
+    .prod-card {
+      background: rgba(255,255,255,.06);
+      border: 2px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color .2s;
     }
-    .fl-check:checked + .fl-label { border-color: var(--yellow); background: rgba(247,208,0,.12); color: var(--yellow); }
+    .prod-card.has-qty { border-color: var(--yellow); background: rgba(247,208,0,.08); }
+
+    .prod-top { display: flex; align-items: center; gap: 10px; }
+    .prod-icon { font-size: 28px; flex-shrink: 0; }
+    .prod-info { flex: 1; min-width: 0; }
+    .prod-name { font-weight: 900; font-size: 14px; line-height: 1.2; color: var(--white); }
+    .prod-size { font-size: 12px; opacity: .6; }
+    .prod-price { font-weight: 900; font-size: 18px; color: var(--yellow); white-space: nowrap; }
+
+    /* qty mobile-friendly */
+    .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .qty-ctrl { display: flex; align-items: center; background: rgba(0,0,0,.25); border-radius: 50px; overflow: hidden; }
+    .pqty-btn {
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 26px;
+      font-weight: 700;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: background .15s;
+    }
+    .pqty-btn:active { background: rgba(247,208,0,.25); }
+    .pqty-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      min-width: 36px;
+      text-align: center;
+      color: var(--white);
+      user-select: none;
+    }
+    .qty-subtotal { font-weight: 900; font-size: 14px; color: var(--yellow); min-width: 60px; text-align: right; }
 
     .submit-btn {
       width: 100%;
@@ -429,13 +450,11 @@
     <div class="flavor-grid">
       <div class="flavor-card">
         <div class="flavor-icon">🍫</div>
-        <div class="flavor-name">Nutella</div>
-        <div class="flavor-desc">Pipoca envolta em chocolate branco com Ninho e generosa cobertura de Nutella cremosa. Irresistível!</div>
+        <div class="flavor-name">Pipoca envolta de chocolate branco e Ninho com cobertura de Nutella</div>
       </div>
       <div class="flavor-card">
         <div class="flavor-icon">🧂</div>
-        <div class="flavor-name">Caramelo Salgado</div>
-        <div class="flavor-desc">A combinação perfeita do doce com o salgado. Chocolate branco com Ninho e caramelo salgado artesanal.</div>
+        <div class="flavor-name">Pipoca envolta de caramelo salgado</div>
       </div>
     </div>
   </div>
@@ -452,12 +471,6 @@
         <div class="price-ml">150ml</div>
         <div class="price-value"><span>R$</span>19,90</div>
         <div class="price-note">Perfeito para compartilhar</div>
-      </div>
-      <div class="price-card">
-        <div class="price-size">Pote Pequeno</div>
-        <div class="price-ml">40ml</div>
-        <div class="price-value"><span>R$</span>11,90</div>
-        <div class="price-note">Ideal para presentear</div>
       </div>
     </div>
   </div>
@@ -545,46 +558,52 @@
           </div>
         </div>
 
-        <!-- Tamanho -->
+        <!-- Produtos -->
         <div class="form-group">
-          <label>Escolha o Tamanho</label>
-          <div class="size-selector">
-            <input type="radio" name="tamanho" id="grande" value="Pote Grande 150ml – R$19,90" class="size-opt" checked />
-            <label for="grande" class="size-label">
-              <span class="s-ml">150ml</span>
-              <span class="s-price">R$19,90</span>
-              <span class="s-name">Pote Grande</span>
-            </label>
+          <label>Produtos e Quantidades</label>
+          <div class="product-grid" id="productGrid">
 
-            <input type="radio" name="tamanho" id="pequeno" value="Pote Pequeno 40ml – R$11,90" class="size-opt" />
-            <label for="pequeno" class="size-label">
-              <span class="s-ml">40ml</span>
-              <span class="s-price">R$11,90</span>
-              <span class="s-name">Pote Pequeno</span>
-            </label>
+            <div class="prod-card" id="card-0">
+              <div class="prod-top">
+                <div class="prod-icon">🍫</div>
+                <div class="prod-info">
+                  <div class="prod-name">Nutella</div>
+                  <div class="prod-size">Pote Grande · 150ml</div>
+                </div>
+                <div class="prod-price">R$19,90</div>
+              </div>
+              <div class="qty-row">
+                <div class="qty-ctrl">
+                  <button type="button" class="pqty-btn" onclick="changeP(0,-1)">−</button>
+                  <div class="pqty-num" id="n-0">0</div>
+                  <button type="button" class="pqty-btn" onclick="changeP(0,1)">+</button>
+                </div>
+                <div class="qty-subtotal" id="s-0"></div>
+              </div>
+            </div>
+
+            <div class="prod-card" id="card-1">
+              <div class="prod-top">
+                <div class="prod-icon">🧂</div>
+                <div class="prod-info">
+                  <div class="prod-name">Caramelo Salgado</div>
+                  <div class="prod-size">Pote Grande · 150ml</div>
+                </div>
+                <div class="prod-price">R$19,90</div>
+              </div>
+              <div class="qty-row">
+                <div class="qty-ctrl">
+                  <button type="button" class="pqty-btn" onclick="changeP(1,-1)">−</button>
+                  <div class="pqty-num" id="n-1">0</div>
+                  <button type="button" class="pqty-btn" onclick="changeP(1,1)">+</button>
+                </div>
+                <div class="qty-subtotal" id="s-1"></div>
+              </div>
+            </div>
+
+
           </div>
-        </div>
-
-        <!-- Sabor -->
-        <div class="form-group">
-          <label>Sabor(es)</label>
-          <div class="flavor-checks">
-            <input type="checkbox" id="fl-nutella" value="Nutella" class="fl-check" checked />
-            <label for="fl-nutella" class="fl-label">🍫 Nutella</label>
-
-            <input type="checkbox" id="fl-caramelo" value="Caramelo Salgado" class="fl-check" />
-            <label for="fl-caramelo" class="fl-label">🧂 Caramelo Salgado</label>
-          </div>
-        </div>
-
-        <!-- Quantidade -->
-        <div class="form-group">
-          <label>Quantidade de Potes</label>
-          <div class="qty-wrap">
-            <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
-            <input type="number" id="qty" value="1" min="1" max="500" readonly />
-            <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
-          </div>
+          <div style="text-align:right; margin-top:10px; font-weight:900; font-size:16px; color:var(--yellow);" id="totalLine"></div>
         </div>
 
         <!-- Endereço -->
@@ -618,27 +637,61 @@
 </a>
 
 <script>
-  // Qty control
-  function changeQty(delta) {
-    const el = document.getElementById('qty');
-    const val = Math.max(1, Math.min(500, parseInt(el.value) + delta));
-    el.value = val;
+  const WA_NUMBER = '5512997101057';
+
+  const PRODUCTS = [
+    { name: 'Nutella – Pote Grande 150ml',          price: 19.90 },
+    { name: 'Caramelo Salgado – Pote Grande 150ml', price: 19.90 },
+  ];
+
+  const qtys = [0, 0];
+
+  function fmt(val) { return 'R$' + val.toFixed(2).replace('.', ','); }
+
+  function updateUI() {
+    let total = 0;
+    qtys.forEach((q, i) => {
+      document.getElementById('n-' + i).textContent = q;
+      const card = document.getElementById('card-' + i);
+      const sub  = document.getElementById('s-' + i);
+      if (q > 0) {
+        const st = q * PRODUCTS[i].price;
+        total += st;
+        sub.textContent = fmt(st);
+        card.classList.add('has-qty');
+      } else {
+        sub.textContent = '';
+        card.classList.remove('has-qty');
+      }
+    });
+    const tl = document.getElementById('totalLine');
+    tl.textContent = total > 0 ? 'Total estimado: ' + fmt(total) : '';
   }
 
-  // WhatsApp number – update here
-  const WA_NUMBER = '5512997101057';
+  function changeP(idx, delta) {
+    qtys[idx] = Math.max(0, Math.min(500, qtys[idx] + delta));
+    updateUI();
+  }
 
   document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    const vendedor  = document.querySelector('input[name="vendedor"]:checked').value;
-    const nome      = document.getElementById('nome').value.trim();
-    const whatsapp  = document.getElementById('whatsapp').value.trim();
-    const tamanho   = document.querySelector('input[name="tamanho"]:checked').value;
-    const qty       = document.getElementById('qty').value;
-    const endereco  = document.getElementById('endereco').value.trim();
+    const itens = PRODUCTS.map((p, i) => ({ ...p, qty: qtys[i] })).filter(p => p.qty > 0);
+    if (itens.length === 0) {
+      alert('Selecione pelo menos um produto antes de enviar o pedido! 🍿');
+      return;
+    }
 
-    const sabores = [...document.querySelectorAll('.fl-check:checked')].map(c => c.value).join(', ') || 'Não especificado';
+    const vendedor = document.querySelector('input[name="vendedor"]:checked').value;
+    const nome     = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const endereco = document.getElementById('endereco').value.trim();
+
+    const totalGeral = itens.reduce((acc, p) => acc + p.qty * p.price, 0);
+
+    const linhasItens = itens.map(p =>
+      `   • ${p.name} x${p.qty} = ${fmt(p.qty * p.price)}`
+    ).join('\n');
 
     const msg = encodeURIComponent(
 `🍿 *PEDIDO – Borbulhandu Sabores* 🍿
@@ -646,10 +699,12 @@
 🧑‍💼 *Vendedor(a):* ${vendedor}
 👤 *Nome:* ${nome}
 📱 *WhatsApp:* ${whatsapp}
-📦 *Tamanho:* ${tamanho}
-🎊 *Sabor(es):* ${sabores}
-🔢 *Quantidade:* ${qty} pote(s)
-${endereco ? `📍 *Entrega/Retirada:* ${endereco}` : ''}
+
+🛒 *Itens do Pedido:*
+${linhasItens}
+
+💰 *Total estimado:* ${fmt(totalGeral)}
+${endereco ? `\n📍 *Entrega/Retirada:* ${endereco}` : ''}
 
 Aguardo a confirmação do meu pedido! 😊`
     );
