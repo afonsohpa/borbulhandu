@@ -463,11 +463,11 @@
 <!-- PREÇOS -->
 <section class="prices">
   <div class="container">
-    <h2 class="section-title">Tamanhos & Preços</h2>
+    <h2 class="section-title">Preço</h2>
     <div class="price-grid">
       <div class="price-card featured">
         <div class="badge-top">⭐ Mais Vendido</div>
-        <div class="price-size">Pote Grande</div>
+        <div class="price-size">Pote de Pipoca</div>
         <div class="price-ml">150ml</div>
         <div class="price-value"><span>R$</span>19,90</div>
         <div class="price-note">Perfeito para compartilhar</div>
@@ -568,7 +568,7 @@
                 <div class="prod-icon">🍫</div>
                 <div class="prod-info">
                   <div class="prod-name">Nutella</div>
-                  <div class="prod-size">Pote Grande · 150ml</div>
+                  <div class="prod-size">Pote de Pipoca · 150ml</div>
                 </div>
                 <div class="prod-price">R$19,90</div>
               </div>
@@ -587,7 +587,7 @@
                 <div class="prod-icon">🧂</div>
                 <div class="prod-info">
                   <div class="prod-name">Caramelo Salgado</div>
-                  <div class="prod-size">Pote Grande · 150ml</div>
+                  <div class="prod-size">Pote de Pipoca · 150ml</div>
                 </div>
                 <div class="prod-price">R$19,90</div>
               </div>
@@ -677,8 +677,8 @@
   }
 
   const PRODUCTS = [
-    { name: 'Nutella – Pote Grande 150ml',                    price: 19.90 },
-    { name: 'Caramelo Salgado – Pote Grande 150ml',           price: 19.90 },
+    { name: 'Nutella – Pote de Pipoca 150ml',                    price: 19.90 },
+    { name: 'Caramelo Salgado – Pote de Pipoca 150ml',           price: 19.90 },
     { name: '💚 Pipoca Solidária (Doação Instituto Elementar)', price: 19.90 },
   ];
 
@@ -733,22 +733,22 @@
 
     const msg = encodeURIComponent(
 [
-'🍿 *PEDIDO – Borbulhandu Sabores* 🍿',
+'*PEDIDO – Borbulhandu Sabores*',
 '',
-'👔 *Vendedor(a):* ' + vendedor,
-'👤 *Nome:* ' + nome,
-'📱 *WhatsApp:* ' + whatsapp,
+'*Vendedor(a):* ' + vendedor,
+'*Nome:* ' + nome,
+'*WhatsApp:* ' + whatsapp,
 '',
-'🛒 *Itens do Pedido:*',
+'*Itens do Pedido:*',
 linhasItens,
 '',
-'💰 *Total estimado:* ' + fmt(totalGeral),
-endereco ? '📍 *Entrega/Retirada:* ' + endereco : '',
+'*Total estimado:* ' + fmt(totalGeral),
+endereco ? '*Entrega/Retirada:* ' + endereco : '',
 '',
-'💳 *PIX para pagamento:*',
+'*PIX para pagamento:*',
 'pipoca@borbulhandu.com.br',
 '',
-'Aguardo a confirmação do meu pedido! 😊'
+'Aguardo a confirmação do meu pedido!'
 ].filter(l => l !== null).join('\n')
     );
 
