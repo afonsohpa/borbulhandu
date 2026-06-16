@@ -637,6 +637,12 @@
         </div>
 
 
+        <!-- Aviso -->
+        <div style="background:rgba(247,208,0,.1);border:2px solid var(--yellow);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;line-height:1.8;">
+          <p style="font-weight:900;font-size:15px;color:var(--yellow);">⚠️ Antes de efetuar seu pagamento:</p>
+          <p style="font-size:14px;margin-top:6px;">Combine a entrega ou retirada.<br>Não esqueça de encaminhar o pedido e o comprovante pelo WhatsApp.</p>
+        </div>
+
         <!-- PIX -->
         <div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
           <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin-bottom:8px;">💳 Chave PIX para pagamento</div>
@@ -748,7 +754,10 @@ endereco ? '*Entrega/Retirada:* ' + endereco : '',
 '*PIX para pagamento:*',
 'pipoca@borbulhandu.com.br',
 '',
-'Aguardo a confirmação do meu pedido!'
+'Antes de efetuar seu pagamento, combine a entrega ou retirada.',
+'Nao esqueca de encaminhar o pedido e o comprovante pelo WhatsApp.',
+'',
+'Aguardo a confirmacao!'
 ].filter(l => l !== null).join('\n')
     );
 
