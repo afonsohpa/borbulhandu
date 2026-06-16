@@ -613,6 +613,15 @@
         </div>
 
 
+        <!-- PIX -->
+        <div style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);border-radius:16px;padding:20px;margin-bottom:16px;text-align:center;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;opacity:.6;margin-bottom:8px;">💳 Chave PIX para pagamento</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;">
+            <span id="pixKey" style="font-weight:900;font-size:16px;color:var(--yellow);word-break:break-all;">pipoca@borbulhandu.com.br</span>
+            <button type="button" onclick="copyPix()" id="copyBtn" style="background:var(--yellow);color:var(--dark);border:none;border-radius:30px;padding:8px 18px;font-weight:900;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;">📋 Copiar</button>
+          </div>
+        </div>
+
         <button type="submit" class="submit-btn">🎁 Enviar Pedido pelo WhatsApp</button>
       </form>
 
@@ -638,6 +647,14 @@
 
 <script>
   const WA_NUMBER = '5512997101057';
+
+  function copyPix() {
+    navigator.clipboard.writeText('pipoca@borbulhandu.com.br').then(() => {
+      const btn = document.getElementById('copyBtn');
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => { btn.textContent = '📋 Copiar'; }, 2000);
+    });
+  }
 
   const PRODUCTS = [
     { name: 'Nutella – Pote Grande 150ml',          price: 19.90 },
@@ -705,6 +722,9 @@ ${linhasItens}
 
 💰 *Total estimado:* ${fmt(totalGeral)}
 ${endereco ? `\n📍 *Entrega/Retirada:* ${endereco}` : ''}
+
+💳 *PIX para pagamento:*
+pipoca@borbulhandu.com.br
 
 Aguardo a confirmação do meu pedido! 😊`
     );
