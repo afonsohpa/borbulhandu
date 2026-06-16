@@ -664,10 +664,6 @@
   © 2026 Borbulhandu Sabores · Pipoca Artesanal de Milho Selecionado · Todos os direitos reservados
 </footer>
 
-<!-- WhatsApp flutuante -->
-<a href="https://wa.me/5512997101057" target="_blank" class="wa-float" title="Fale conosco no WhatsApp">
-  💬
-</a>
 
 <script>
   const WA_NUMBER = '5512997101057';
@@ -736,22 +732,24 @@
     ).join('\n');
 
     const msg = encodeURIComponent(
-`🍿 *PEDIDO – Borbulhandu Sabores* 🍿
-
-🧑‍💼 *Vendedor(a):* ${vendedor}
-👤 *Nome:* ${nome}
-📱 *WhatsApp:* ${whatsapp}
-
-🛒 *Itens do Pedido:*
-${linhasItens}
-
-💰 *Total estimado:* ${fmt(totalGeral)}
-${endereco ? `\n📍 *Entrega/Retirada:* ${endereco}` : ''}
-
-💳 *PIX para pagamento:*
-pipoca@borbulhandu.com.br
-
-Aguardo a confirmação do meu pedido! 😊`
+[
+'🍿 *PEDIDO – Borbulhandu Sabores* 🍿',
+'',
+'👔 *Vendedor(a):* ' + vendedor,
+'👤 *Nome:* ' + nome,
+'📱 *WhatsApp:* ' + whatsapp,
+'',
+'🛒 *Itens do Pedido:*',
+linhasItens,
+'',
+'💰 *Total estimado:* ' + fmt(totalGeral),
+endereco ? '📍 *Entrega/Retirada:* ' + endereco : '',
+'',
+'💳 *PIX para pagamento:*',
+'pipoca@borbulhandu.com.br',
+'',
+'Aguardo a confirmação do meu pedido! 😊'
+].filter(l => l !== null).join('\n')
     );
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
